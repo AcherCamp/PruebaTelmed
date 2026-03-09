@@ -2,11 +2,11 @@ FROM node:18
 
 WORKDIR /app
 
-COPY Login/package*.json ./
+COPY package*.json ./
 
 RUN npm install
 
-COPY Login .
+COPY . .
 
 EXPOSE 5173
 
