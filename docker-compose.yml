@@ -5,7 +5,7 @@ services:
   backend:
     image: telmed_backend
     build:
-      context: ./backend
+      context: ./backend/TelMedBackend
       dockerfile: Dockerfile
     container_name: backend_api
     ports:
@@ -14,7 +14,7 @@ services:
   frontend:
     image: telmed_frontend
     build:
-      context: ./frontend
+      context: ./frontend/Login
       dockerfile: Dockerfile
     container_name: frontend_vue
     ports:
