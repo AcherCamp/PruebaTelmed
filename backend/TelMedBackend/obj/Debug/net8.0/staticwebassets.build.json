@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "qM5ZNimxJjmlOgTchGMfgQs4LT8PPV4twVddr3mDUTI=",
+  "Source": "TelMedAPI",
+  "BasePath": "_content/TelMedAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

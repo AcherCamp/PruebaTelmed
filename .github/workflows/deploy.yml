@@ -1,0 +1,30 @@
+name: CI/CD Proyecto
+
+on:
+  push:
+    branches:
+      - Development
+
+jobs:
+
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Clonar repositorio
+      uses: actions/checkout@v4
+
+    - name: Instalar Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install docker-compose -y
+
+    - name: Construir contenedores
+      run: |
+        docker-compose build
+
+    - name: Ejecutar contenedores
+      run: |
+        docker-compose up -d
