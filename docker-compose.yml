@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+
+  backend:
+    build:
+      context: ./backend/TelMed Backend
+      dockerfile: Dockerfile
+    container_name: backend_api
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: ./frontend/Login
+      dockerfile: Dockerfile
+    container_name: frontend_vue
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
