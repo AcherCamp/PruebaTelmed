@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Grupo A\\Documents\\Proyecto Final\\backend\\TelMed Backend\\TelMedAPI.csproj": {}
+    "C:\\Users\\Grupo A\\Desktop\\Proyecto TelMed\\backend\\TelMed Backend\\TelMedAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Grupo A\\Documents\\Proyecto Final\\backend\\TelMed Backend\\TelMedAPI.csproj": {
+    "C:\\Users\\Grupo A\\Desktop\\Proyecto TelMed\\backend\\TelMed Backend\\TelMedAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Grupo A\\Documents\\Proyecto Final\\backend\\TelMed Backend\\TelMedAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Grupo A\\Desktop\\Proyecto TelMed\\backend\\TelMed Backend\\TelMedAPI.csproj",
         "projectName": "TelMedAPI",
-        "projectPath": "C:\\Users\\Grupo A\\Documents\\Proyecto Final\\backend\\TelMed Backend\\TelMedAPI.csproj",
+        "projectPath": "C:\\Users\\Grupo A\\Desktop\\Proyecto TelMed\\backend\\TelMed Backend\\TelMedAPI.csproj",
         "packagesPath": "C:\\Users\\Grupo A\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Grupo A\\Documents\\Proyecto Final\\backend\\TelMed Backend\\obj\\",
+        "outputPath": "C:\\Users\\Grupo A\\Desktop\\Proyecto TelMed\\backend\\TelMed Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Grupo A\\AppData\\Roaming\\NuGet\\NuGet.Config"

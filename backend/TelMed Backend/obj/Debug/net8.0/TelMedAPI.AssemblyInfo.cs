@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TelMedAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8373df6e3f3f94320a22934057266c3296f55d21")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06c89fae230a5e3ef5cc1f7cc594cd1feecd1227")]
 [assembly: System.Reflection.AssemblyProductAttribute("TelMedAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TelMedAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

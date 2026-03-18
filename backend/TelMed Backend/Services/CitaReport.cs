@@ -7,13 +7,14 @@ namespace TelMedAPI.Services
 {
     public class CitaReport : IDocument
     {
-        public Cita Model { get; }
+        public Cita CitaData { get; }
+        public Consulta ConsultaData { get; }
 
-        public CitaReport(Cita model)
+      public CitaReport(Cita cita, Consulta consulta)
         {
-            Model = model;
+            CitaData = cita;
+            ConsultaData = consulta;
         }
-
         public void Compose(IDocumentContainer container)
         {
             container.Page(page =>
@@ -30,15 +31,16 @@ namespace TelMedAPI.Services
                 {
                     col.Spacing(10);
 
-                    col.Item().Text($"Paciente: {Model.Paciente?.Nombre} {Model.Paciente?.Apellido}");
-
-                    col.Item().Text($"Fecha Inicio: {Model.FechaInicio:dd/MM/yyyy HH:mm}");
-
-                    col.Item().Text($"Fecha Fin: {Model.FechaFin:dd/MM/yyyy HH:mm}");
-
-                    col.Item().Text($"Estado: {Model.Estado}");
-
-                    col.Item().Text($"Motivo: {Model.Motivo}");
+                    col.Item().Text($"Paciente: {CitaData.Paciente?.Nombre} {CitaData.Paciente?.Apellido}");
+                    col.Item().Text($"Fecha Inicio: {CitaData.FechaInicio:dd/MM/yyyy HH:mm}");
+                    col.Item().Text($"Fecha Fin: {CitaData.FechaFin:dd/MM/yyyy HH:mm}");
+                    col.Item().Text($"Estado: {CitaData.Estado}");
+                    col.Item().Text($"Motivo: {CitaData.Motivo}");
+                    //Campos Médico
+                    col.Item().Text($"Diagnóstico: {ConsultaData.Diagnostico}");
+                    col.Item().Text($"Síntomas: {ConsultaData.Sintomas}");
+                    col.Item().Text($"Tratamiento: {ConsultaData.Tratamiento}");
+                    col.Item().Text($"Observaciones: {ConsultaData.Observaciones}");
                 });
 
                 page.Footer()

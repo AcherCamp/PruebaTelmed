@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0/YEhRipl28=",
+  "dgSpecHash": "gD7FS+OK5Fk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Grupo A\\Documents\\Proyecto Final\\backend\\TelMed Backend\\TelMedAPI.csproj",
+  "projectFilePath": "C:\\Users\\Grupo A\\Desktop\\Proyecto TelMed\\backend\\TelMed Backend\\TelMedAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Grupo A\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Grupo A\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

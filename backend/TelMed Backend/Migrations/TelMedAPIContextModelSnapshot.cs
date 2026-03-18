@@ -75,6 +75,60 @@ namespace TelMedAPI.Migrations
                     b.ToTable("cita");
                 });
 
+            modelBuilder.Entity("TelMedAPI.Models.Consulta", b =>
+                {
+                    b.Property<int>("IdConsulta")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id_consulta");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdConsulta"));
+
+                    b.Property<int>("CitaId")
+                        .HasColumnType("integer")
+                        .HasColumnName("cita_id");
+
+                    b.Property<string>("Diagnostico")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("diagnostico");
+
+                    b.Property<string>("Evolucion")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("evolucion");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("fecha");
+
+                    b.Property<string>("MedicamentosJson")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("medicamentos_json");
+
+                    b.Property<string>("Observaciones")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("observaciones");
+
+                    b.Property<string>("Sintomas")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("sintomas");
+
+                    b.Property<string>("Tratamiento")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("tratamiento");
+
+                    b.HasKey("IdConsulta");
+
+                    b.HasIndex("CitaId");
+
+                    b.ToTable("consulta");
+                });
+
             modelBuilder.Entity("TelMedAPI.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -157,6 +211,17 @@ namespace TelMedAPI.Migrations
                     b.Navigation("Doctor");
 
                     b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("TelMedAPI.Models.Consulta", b =>
+                {
+                    b.HasOne("TelMedAPI.Models.Cita", "Cita")
+                        .WithMany()
+                        .HasForeignKey("CitaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cita");
                 });
 
             modelBuilder.Entity("TelMedAPI.Models.Usuario", b =>

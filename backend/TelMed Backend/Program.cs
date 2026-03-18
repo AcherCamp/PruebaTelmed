@@ -18,8 +18,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Controllers y Validadores
 builder.Services.AddControllers()
 .AddJsonOptions(options=>
-    { //Envía propiedades al frontend como camelCase
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    { 
+        // Evita ciclos JSON
+        options.JsonSerializerOptions.ReferenceHandler =
+        System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
 //Eso registra todos los validators del proyecto sin importar el nombre
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
@@ -67,12 +69,12 @@ builder.Services.AddDbContext<TelMedAPIContext>(options =>
 // CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowVue",
-        policy =>
+    options.AddPolicy("AllowVue", policy =>
         {
             policy.WithOrigins("http://localhost:5173")
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowCredentials();
         });
 });
 
@@ -105,12 +107,9 @@ app.UseCors("AllowVue");
 app.UseAuthentication();
 app.UseMiddleware<ForcePasswordChangeMiddleware>();
 app.UseAuthorization();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//Swagger siempre activo
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapControllers();
 

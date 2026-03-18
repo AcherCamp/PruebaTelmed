@@ -8,8 +8,7 @@ namespace TelMedAPI.Data
     {
         public static void Seed(TelMedAPIContext context)
         {
-            // Si ya existen pacientes o citas no hace nada
-            if (context.Usuarios.Any(u => u.Rol == Roles.Paciente) || context.Citas.Any())
+            if (context.Citas.Any())
                 return;
 
             var pacientes = new List<Usuario>
@@ -79,31 +78,58 @@ namespace TelMedAPI.Data
             context.Usuarios.AddRange(pacientes);
             context.SaveChanges();
 
+            //Creación de citas
             var doctor = context.Usuarios.FirstOrDefault(u => u.Rol == Roles.Admin);
 
             if (doctor == null)
+            {
+                Console.WriteLine("⚠️ No hay doctor admin.");
                 return;
+            }
 
-            var baseDate = DateTimeOffset.UtcNow;
-            // Generar citas
-            var citas = new List<Cita>
-        {
-            new Cita {PacienteId = pacientes[0].Id, DoctorId = doctor.Id, FechaInicio = baseDate.AddDays(1).AddHours(9), FechaFin = baseDate.AddDays(1).AddHours(10), Motivo="Chequeo", TipoConsulta="General", Estado=CitaEstados.Pendiente},
-            new Cita {PacienteId = pacientes[1].Id, DoctorId = doctor.Id, FechaInicio = baseDate.AddDays(1).AddHours(10), FechaFin = baseDate.AddDays(1).AddHours(11), Motivo="Dolor cabeza", TipoConsulta="General", Estado=CitaEstados.Pendiente},
-            new Cita {PacienteId = pacientes[2].Id, DoctorId = doctor.Id, FechaInicio = baseDate.AddDays(2).AddHours(11), FechaFin = baseDate.AddDays(2).AddHours(12), Motivo="Consulta", TipoConsulta="General", Estado=CitaEstados.Confirmada},
-            new Cita {PacienteId = pacientes[3].Id, DoctorId = doctor.Id, FechaInicio = baseDate.AddDays(3).AddHours(14), FechaFin = baseDate.AddDays(3).AddHours(15), Motivo="Chequeo", TipoConsulta="General", Estado=CitaEstados.Cancelada},
-            new Cita {PacienteId = pacientes[4].Id, DoctorId = doctor.Id, FechaInicio = baseDate.AddDays(4).AddHours(9), FechaFin = baseDate.AddDays(4).AddHours(10), Motivo="Dolor estomacal", TipoConsulta="General", Estado=CitaEstados.Pendiente},
+            // buscar próximo lunes
+            var today = DateTimeOffset.UtcNow.Date;
+            int daysUntilMonday = ((int)DayOfWeek.Monday - (int)today.DayOfWeek + 7) % 7;
+            var monday = today.AddDays(daysUntilMonday);
 
-            new Cita {PacienteId = pacientes[0].Id, DoctorId = doctor.Id, FechaInicio = baseDate.AddDays(5).AddHours(10), FechaFin = baseDate.AddDays(5).AddHours(11), Motivo="Control", TipoConsulta="General", Estado=CitaEstados.Pendiente},
-            new Cita {PacienteId = pacientes[1].Id, DoctorId = doctor.Id, FechaInicio = baseDate.AddDays(5).AddHours(11), FechaFin = baseDate.AddDays(5).AddHours(12), Motivo="Chequeo", TipoConsulta="General", Estado=CitaEstados.Pendiente},
-            new Cita {PacienteId = pacientes[2].Id, DoctorId = doctor.Id, FechaInicio = baseDate.AddDays(6).AddHours(9), FechaFin = baseDate.AddDays(6).AddHours(10), Motivo="Consulta", TipoConsulta="General", Estado=CitaEstados.Confirmada},
-            new Cita {PacienteId = pacientes[3].Id, DoctorId = doctor.Id, FechaInicio = baseDate.AddDays(6).AddHours(10), FechaFin = baseDate.AddDays(6).AddHours(11), Motivo="Dolor muscular", TipoConsulta="General", Estado=CitaEstados.Pendiente},
-            new Cita {PacienteId = pacientes[4].Id, DoctorId = doctor.Id, FechaInicio = baseDate.AddDays(7).AddHours(14), FechaFin = baseDate.AddDays(7).AddHours(15), Motivo="Chequeo", TipoConsulta="General", Estado=CitaEstados.Pendiente}
-        };
+            var estados = new[]
+            {
+                CitaEstados.Pendiente,
+                CitaEstados.Confirmada,
+                CitaEstados.Cancelada
+            };
+
+            var random = new Random();
+
+            var citas = new List<Cita>();
+
+            // lunes a viernes
+            for (int d = 0; d < 5; d++)
+            {
+                var day = monday.AddDays(d);
+
+                // horario 9 a 16 (9-10, 10-11...)
+                for (int h = 9; h < 17; h++)
+                {
+                    var paciente = pacientes[(d + h) % pacientes.Count];
+
+                    citas.Add(new Cita
+                    {
+                        PacienteId = paciente.Id,
+                        DoctorId = doctor.Id,
+                        FechaInicio = day.AddHours(h).ToUniversalTime(),
+                        FechaFin = day.AddHours(h + 1).ToUniversalTime(),
+                        Motivo = "Consulta médica",
+                        TipoConsulta = "General",
+                        Estado = estados[random.Next(estados.Length)]
+                    });
+                }
+            }
 
             context.Citas.AddRange(citas);
             context.SaveChanges();
-            Console.WriteLine("✅ Seeder completado.");
+
+            Console.WriteLine($"✅ Seeder completado con {citas.Count} citas generadas.");
         }
     }
 }

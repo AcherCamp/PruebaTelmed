@@ -1,0 +1,13 @@
+# Frontend (Vue)
+node_modules/
+dist/
+.env.local
+
+# Backend (.NET)
+bin/
+obj/
+appsettings.Development.json
+
+# Sistema
+.DS_Store
+Thumbs.db   

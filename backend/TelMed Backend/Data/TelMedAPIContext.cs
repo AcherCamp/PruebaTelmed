@@ -12,6 +12,7 @@ namespace TelMedAPI.Data
 
         public DbSet<Cita> Citas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Consulta> Consultas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
